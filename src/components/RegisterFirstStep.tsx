@@ -32,7 +32,7 @@ const RegisterFirstStep = () => {
         reference: reference
       };
 
-      fetch('https://nodejs-express-sequelize-mysql-production.up.railway.app/login', {
+      fetch('https://nodejs-express-sequelize-mysql-production-fead.up.railway.app/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
