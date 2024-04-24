@@ -7,7 +7,7 @@ const Profile: React.FC = () => {
 
   const AddComments = async () => {
     try {
-      const response = await axios.post<string>('https://nodejs-express-sequelize-mysql-production.up.railway.app/createComments', { comments, reference });
+      const response = await axios.post<string>('https://nodejs-express-sequelize-mysql-production-fead.up.railway.app/createComments', { comments, reference });
 
     } catch (error) {
       console.error('Error logging in:', error);
