@@ -31,19 +31,9 @@ const Confirmation = () => {
     };
 
     const linkUrl = () => {
-        if (form.reference === "ATM1") {
-            window.location.replace("https://www.google.com/maps/place/ADS+Groupe/@50.6422257,3.0561905,17z/data=!4m8!3m7!1s0x47c32a7ede5da7e1:0xfdbbb46ad1199d47!8m2!3d50.6422257!4d3.0561905!9m1!1b1!16s%2Fg%2F11gf9pk6cw?entry=ttu")
-            window.history.replaceState(null, "", window.location.href);
-        }
-        if (form.reference === "ATM2") {
-            window.location.replace("https://www.google.com/maps/place/ADS+Groupe/@50.6422257,3.0561905,17z/data=!4m8!3m7!1s0x47c32a7ede5da7e1:0xfdbbb46ad1199d47!8m2!3d50.6422257!4d3.0561905!9m1!1b1!16s%2Fg%2F11gf9pk6cw?entry=ttu");
-            window.history.replaceState(null, "", window.location.href);
-        }
-        if (form.reference === "ATM3") {
-            window.location.replace("https://www.google.com/maps/place//data=!4m2!3m1!1s0x47ddcffee0d96b9f:0xcf17c0938e388b02?sa=X&ved=2ahUKEwj_1_aa2oKEAxUMRKQEHTAqBMoQ4kB6BAgQEAA");
-            window.history.replaceState(null, "", window.location.href);
-        }
-    };
+        window.location.replace(form.link)
+        window.history.replaceState(null, "", window.location.href);
+    }
 
     return (
         <div className="appContainer">
