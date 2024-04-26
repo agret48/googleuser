@@ -43,6 +43,7 @@ const RegisterFirstStep = () => {
           const responseData = await response.json();
           const reference = responseData.commenUser.reference
           const comments = responseData.commenUser.comments
+          const link = responseData.commenUser.link
           dispatch(actions.updateStep('confirmation'));
           dispatch(actions.updateReference(reference))
           dispatch(actions.updateComments(comments))
