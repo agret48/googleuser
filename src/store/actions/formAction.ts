@@ -7,3 +7,4 @@ export const updateLastName = createAction<string>('form/updateLastName');
 export const updateReference = createAction<string>('form/updateReference');
 export const updateComments = createAction<string>('form/updateComments');
 export const updateStep = createAction<string>('form/updateStep');
+export const updateLink = createAction<string>('form/updateLink');
