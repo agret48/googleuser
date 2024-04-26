@@ -46,6 +46,7 @@ const RegisterFirstStep = () => {
           dispatch(actions.updateStep('confirmation'));
           dispatch(actions.updateReference(reference))
           dispatch(actions.updateComments(comments))
+          dispatch(actions.updateLink(link))
         })
         .catch(error => {
           console.error('Erreur lors de la communication avec le serveur : ', error);
