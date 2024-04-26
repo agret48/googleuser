@@ -23,7 +23,7 @@ const App = () => {
               {form.step === 'form' && <RegisterFirstStep />}
               {form.step === 'confirmation' && <Confirmation />}
               <Container className='fixed-bottom text-center textFooter mb-5'>
-                Powered by <Image height="50" src={power} />
+                Powered by <Image height="40" src={power} />
               </Container>
             </Container>
           } />
