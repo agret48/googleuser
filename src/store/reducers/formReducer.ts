@@ -38,6 +38,9 @@ const formReducer = createReducer(initialState, (builder) => {
         .addCase(actions.updateStep, (state, action) => {
             state.step = action.payload;
         })
+        .addCase(actions.updateLink, (state, action) => {
+            state.link = action.payload;
+        })
 });
 
 export default formReducer;
