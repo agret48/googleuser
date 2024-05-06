@@ -3,12 +3,15 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../store/index";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Image from 'react-bootstrap/Image';
+import copyIcon from '../images/copyIcon.svg';
+import { useState } from 'react';
 
 const Confirmation = () => {
     const form = useSelector(
         (state: RootState) => state.form
     );
-
+   const [textCopied, setTextCopied] = useState(false); 
     const notify = () => toast("Text Copied!", {
         autoClose: 1 // Fermer automatiquement après 2 secondes (2000 millisecondes)
     });
@@ -27,6 +30,7 @@ const Confirmation = () => {
         window.getSelection()?.addRange(range);
         document.execCommand('copy');
         window.getSelection()?.removeAllRanges();
+        setTextCopied(true);
         notify();
     };
 
@@ -36,7 +40,7 @@ const Confirmation = () => {
     }
 
     return (
-        <div className="appContainer">
+      <div className="appContainer">
             <Container>
                 <Row className="justify-content-center align-items-center pt-5">
                     <Col className='pt-5'>
@@ -46,12 +50,17 @@ const Confirmation = () => {
                                     {form.comments}
                                 </p>
                                 <div className='copyButton mt-2' onClick={handleCopyText}>
-                                    Copier
-                                    <ToastContainer autoClose={false} />
+                                    <div className="justify-content-center align-items-center">
+                                        <div className="p-1">
+                                            Copier
+                                            <Image className="m-1" src={copyIcon} />
+                                            <ToastContainer autoClose={false} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="text-center pt-3">
-                                <Button className="buttonCustom text-white" onClick={linkUrl}>
+                                <Button className="buttonCustom text-white" onClick={linkUrl} disabled={!textCopied}>
                                     Suivant
                                 </Button>
                             </div>
