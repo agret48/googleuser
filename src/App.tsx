@@ -19,13 +19,13 @@ const App = () => {
           <Route path="/user" element={<Login />} />
           <Route path="/profil" element={<Profile />} />
           <Route path="/" element={
-            <Container className="appContainer">
+            <div className="appContainer">
               {form.step === 'form' && <RegisterFirstStep />}
               {form.step === 'confirmation' && <Confirmation />}
-              <Container className='fixed-bottom text-center textFooter mb-5'>
-                Powered by <Image height="19" src={power} />
+              <Container className='fixed-bottom text-center textFooter mb-4'>
+                Réalisé par <Image height="19" src={power} />
               </Container>
-            </Container>
+            </div>
           } />
         </Routes>
       </div>
