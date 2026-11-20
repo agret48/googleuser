@@ -1,6 +1,6 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { RootState } from "../store/index";
+import { RootState } from '../store/index';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'react-bootstrap/Image';
@@ -8,68 +8,72 @@ import copyIcon from '../images/copyIcon.svg';
 import { useState } from 'react';
 
 const Confirmation = () => {
-    const form = useSelector(
-        (state: RootState) => state.form
-    );
-   const [textCopied, setTextCopied] = useState(false); 
-    const notify = () => toast("Text Copied!", {
-        autoClose: 1 // Fermer automatiquement après 2 secondes (2000 millisecondes)
-    });
+  const form = useSelector((state: RootState) => state.form);
+  const [textCopied, setTextCopied] = useState(false);
 
-    const handleCopyText = () => {
-        // Select the text to be copied
-        const textToCopy = document.querySelector('.text-copy');
-        if (!textToCopy) {
-            console.error('Element with class .copyText not found.');
-            return;
-        }
+  const notify = () =>
+    toast.success('Texte copié !', { autoClose: 2000, position: 'top-center' });
 
-        const range = document.createRange();
-        range.selectNode(textToCopy);
-        window.getSelection()?.removeAllRanges();
-        window.getSelection()?.addRange(range);
-        document.execCommand('copy');
-        window.getSelection()?.removeAllRanges();
-        setTextCopied(true);
-        notify();
-    };
+  const fallbackCopy = () => {
+    const textToCopy = document.querySelector('.text-copy');
+    if (!textToCopy) return false;
+    const range = document.createRange();
+    range.selectNode(textToCopy);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(range);
+    const ok = document.execCommand('copy');
+    window.getSelection()?.removeAllRanges();
+    return ok;
+  };
 
-    const linkUrl = () => {
-        window.location.replace(form.link)
-        window.history.replaceState(null, "", window.location.href);
+  const handleCopyText = async () => {
+    try {
+      await navigator.clipboard.writeText(form.comments);
+    } catch {
+      if (!fallbackCopy()) {
+        console.error('Copie impossible.');
+        return;
+      }
     }
+    setTextCopied(true);
+    notify();
+  };
 
-    return (
-      <div className="appContainer">
-            <Container>
-                <Row className="justify-content-center align-items-center pt-5">
-                    <Col className='pt-5'>
-                        <div className='cardCustom p-4 text-center'>
-                            <div className='copyText mt-3 p-3'>
-                                <p className='text-copy'>
-                                    {form.comments}
-                                </p>
-                                <div className='copyButton mt-2' onClick={handleCopyText}>
-                                    <div className="justify-content-center align-items-center">
-                                        <div className="p-1">
-                                            Copier
-                                            <Image className="m-1" src={copyIcon} />
-                                            <ToastContainer autoClose={false} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="text-center pt-3">
-                                <Button className="buttonCustom text-white" onClick={linkUrl} disabled={!textCopied}>
-                                    Suivant
-                                </Button>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    );
+  const linkUrl = () => {
+    window.location.replace(form.link);
+    window.history.replaceState(null, '', window.location.href);
+  };
+
+  return (
+    <div className="cardCustom text-center">
+      <ToastContainer />
+      <div className="steps">
+        <span className="active" />
+        <span className="active" />
+      </div>
+      <div className="cardTitle">Votre texte</div>
+      <p className="cardSubtitle">Copiez le texte ci-dessous, puis cliquez sur « Suivant ».</p>
+
+      <div className="copyText">
+        <p className="text-copy">{form.comments}</p>
+        <button
+          type="button"
+          className={`copyButton ${textCopied ? 'copied' : ''}`}
+          onClick={handleCopyText}
+        >
+          {textCopied ? '✓ Copié' : 'Copier'}
+          {!textCopied && <Image src={copyIcon} />}
+        </button>
+      </div>
+
+      <div className="pt-4">
+        <Button className="buttonCustom text-white" onClick={linkUrl} disabled={!textCopied}>
+          Suivant
+        </Button>
+        {!textCopied && <div className="hint">Copiez d'abord le texte pour continuer.</div>}
+      </div>
+    </div>
+  );
 };
 
 export default Confirmation;
